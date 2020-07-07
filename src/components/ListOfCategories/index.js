@@ -4,15 +4,26 @@ import { List, Item } from './styles'
 
 import { Category } from '../Category'
 
-export const ListOfCategories = () => {
+function useCategoriesData () {
   const [categories, setCategories] = useState([])
-  const [showFixed, setShowFixed] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
+    setLoading(true)
     window.fetch('https://petgram-server.hectorf.vercel.app/categories')
       .then(res => res.json())
-      .then(data => setCategories(data))
+      .then(data => {
+        setCategories(data)
+        setLoading(false)
+      })
   }, [])
+
+  return { categories, loading }
+}
+
+export const ListOfCategories = () => {
+  const { categories, loading } = useCategoriesData()
+  const [showFixed, setShowFixed] = useState(false)
 
   useEffect(() => {
     const onScroll = e => {
@@ -31,9 +42,9 @@ export const ListOfCategories = () => {
   }, [showFixed])
 
   const renderList = (fixed = false) => (
-    <List className={fixed ? 'fixed' : ''}>
+    <List fixed={fixed}>
       {
-        categories.map(category => <Item key={category.id}><Category {...category} /></Item>)
+        loading ? <Item key='loading'><Category /></Item> : categories.map(category => <Item key={category.id}><Category {...category} /></Item>)
       }
     </List>
   )
