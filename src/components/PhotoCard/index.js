@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { MdFavoriteBorder, MdFavorite } from 'react-icons/md'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
+import { useNearScreen } from '../../hooks/useNearScreen'
 
 import { Button, Img, ImgWrapper, Article } from './styles'
 
@@ -8,29 +9,9 @@ const DEFAULT_IMAGE = 'https://res.cloudinary.com/midudev/image/upload/w_300/q_8
 
 
 export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
-  const element = useRef(null)
-  const [show, setShow] = useState(false)
   const key = `liked_${id}`
   const [liked, setLiked] = useLocalStorage(key, false)
-
-  useEffect(() => {
-    Promise.resolve(
-      window.IntersectionObserver !== undefined
-        ? window.IntersectionObserver
-        : import('intersection-observer')
-    )
-      .then(() => {
-        const observer = new window.IntersectionObserver(entries => {
-          const { isIntersecting } = entries[0]
-          if (isIntersecting) {
-            setShow(true)
-            observer.disconnect()
-          }
-        })
-
-        observer.observe(element.current)
-      })
-  }, [element])
+  const [show, element] = useNearScreen()
 
   const Icon = liked ? MdFavorite : MdFavoriteBorder
 
