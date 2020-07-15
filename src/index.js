@@ -1,15 +1,17 @@
 import React from 'react'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
+import Context from './Context'
 import ReactDOM from 'react-dom'
+import { App } from './App'
 
 const client = new ApolloClient({
   uri: 'https://petgram-server.hectorf.vercel.app/graphql'
 })
 
-import { App } from './App'
-
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <App />
-  </ApolloProvider>, document.getElementById('app'))
+  <Context.Provider value={{ isAuth: false }}>
+    <ApolloProvider client={client}>
+      <App />
+    </ApolloProvider>
+  </Context.Provider>, document.getElementById('app'))
