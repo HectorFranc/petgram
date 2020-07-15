@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Logo } from './components/Logo'
 import { GlobalStyles } from './styles/GlobalStyles'
+import { NavBar } from './components/NavBar'
 
 import { Home } from './pages/Home'
 import { Detail } from './pages/Detail'
@@ -18,6 +19,7 @@ export const App = () => {
         <Home path='/pet/:id' />
         <Detail path='/detail/:detailId' />
       </Router>
+      <NavBar />
     </>
   )
 }
