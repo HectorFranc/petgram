@@ -9,12 +9,23 @@ export const NotRegisteredUser = () => {
       {
         ({activateAuth}) => {
           return (
-            <UserForm
-              onSubmit={(e) => {
-                e.preventDefault()
-                activateAuth()
-              }}
-            />
+            <>
+              <UserForm
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  activateAuth()
+                }}
+                title='Registrarse'
+              />
+
+              <UserForm
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  activateAuth()
+                }}
+                title='Iniciar Sesión'
+              />
+            </>
           )
         }
       }
