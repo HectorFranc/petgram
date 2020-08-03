@@ -7,6 +7,7 @@
     "now-build": "npm run build",
     "build": "webpack",
     "dev": "webpack-dev-server --open --history-api-fallback",
+    "serve:dev": "webpack --mode development && serve dist/ -s",
     "lint": "standard",
     "lint-fix": "standard --fix"
   },
@@ -20,6 +21,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "html-webpack-plugin": "^4.3.0",
+    "serve": "^11.3.2",
     "standard": "^14.3.4",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.12",
